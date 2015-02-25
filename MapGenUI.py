@@ -1,9 +1,11 @@
 from Tkinter import *
+import tkMessageBox
 
 nameList = []
 scoreList = []
 descList = []
 
+treasureCounter = 0
 
 
 def printLists():
@@ -14,21 +16,37 @@ def printLists():
     print descList
 
 class GridDemo( Frame ):
-    
-    
-    def saveFun(self):   
-        nameList.append(self.entryName.get())
-        scoreList.append(self.entryPoints.get())
-        descList.append(self.entryDesc.get())
 
-        self.entryName.delete(0,1000)
-        self.entryPoints.delete(0,1000)
-        self.entryDesc.delete(0,1000)
+    
+    def saveFun(self):
+        global treasureCounter
+        global treasurePrint
+
+        if treasureCounter != 10:
+            if len(self.entryName.get()) != 0 and len(self.entryPoints.get()) != 0 and len(self.entryDesc.get()) != 0:
+                nameList.append(self.entryName.get())
+                scoreList.append(self.entryPoints.get())
+                descList.append(self.entryDesc.get())
+
+                self.entryName.delete(0,1000)
+                self.entryPoints.delete(0,1000)
+                self.entryDesc.delete(0,1000)
+
+                treasureCounter = treasureCounter + 1
+                treasurePrint = str(treasureCounter) + "/10"
+                self.labelTreasureNum.config(text=treasurePrint)
+            else:
+                tkMessageBox.showwarning("Error", "Fill all 3 boxes")
+        else:
+            tkMessageBox.showwarning("Limit reached", "You've added all treasures, click on Finish Adding Treasures button to continue")
         
-    def __init__( self ):   
+    def __init__( self ):
 
-        treasureCounter = 0
-      
+        
+
+        global treasureCounter
+        treasurePrint = str(treasureCounter) + "/10"
+        
         Frame.__init__( self )
         self.master.title( "Treasure Creator" )
 
@@ -44,6 +62,12 @@ class GridDemo( Frame ):
 
         self.labelDesc = Label(self, text="Treasure Description")
         self.labelDesc.grid (row = 3, rowspan = 1, column = 1)
+
+        self.labelTreasureCreated = Label(self, text="Treasures Created")
+        self.labelTreasureCreated.grid (row = 0, rowspan = 1, column = 1)
+
+        self.labelTreasureNum = Label(self, text=treasurePrint)
+        self.labelTreasureNum.grid (row = 0, rowspan = 1, column = 2)
         
         self.entryName = Entry(self)
         self.entryName.grid (row = 1, rowspan = 1,  column = 2, sticky = W+E+N+S) 
