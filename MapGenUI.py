@@ -6,6 +6,7 @@ scoreList = []
 descList = []
 
 treasureCounter = 0
+scoreCount = 0
 
 
 def printLists():
@@ -16,7 +17,7 @@ def printLists():
     print descList
 
 class GridDemo( Frame ):
-
+    
     
     def saveFun(self):
         global treasureCounter
@@ -39,10 +40,32 @@ class GridDemo( Frame ):
                 tkMessageBox.showwarning("Error", "Fill all 3 boxes")
         else:
             tkMessageBox.showwarning("Limit reached", "You've added all treasures, click on Finish Adding Treasures button to continue")
+
+    def listGenerate(self):
+        global scoreList
+        global scoreCount
+        
+        originalMap = open('num.txt', 'r')
+        orgRead = originalMap.read()
+        treasurePointMap = open('pointList.txt', 'w')
+
+        for fileCount in orgRead:
+            if scoreCount < len(scoreList):
+                if fileCount == '4' or fileCount == '5' or fileCount == '6':
+                    newVal = "(" + str(scoreCount) + ":" + scoreList[scoreCount] + ")"
+                    treasurePointMap.write(newVal)
+                    scoreCount += 1
+                    if scoreCount >= len(scoreList):
+                        treasurePointMap.write(fileCount)
+                else:
+                    treasurePointMap.write(fileCount)
+            else:
+                treasurePointMap.write(fileCount)                    
+            
+        
+        
         
     def __init__( self ):
-
-        
 
         global treasureCounter
         treasurePrint = str(treasureCounter) + "/10"
@@ -81,7 +104,7 @@ class GridDemo( Frame ):
         self.saveButton = Button(self, text = "Save this treasure", command=self.saveFun)
         self.saveButton.grid(row = 4, column = 1, columnspan = 2, sticky = W+E+N+S)
 
-        self.finishButton = Button(self, text = "Finish adding treasures")
+        self.finishButton = Button(self, text = "Finish adding treasures", command=self.listGenerate)
         self.finishButton.grid(row = 5, column = 1, columnspan = 2, sticky = W+E+N+S)
 
         self.printLists = Button(self, text = "Print Test", command=printLists)
