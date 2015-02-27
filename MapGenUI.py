@@ -9,16 +9,10 @@ treasureCounter = 0
 scoreCount = 0
 
 
-def printLists():
-    print nameList
-    print
-    print scoreList
-    print
-    print descList
-
-class GridDemo( Frame ):
-    
-    
+class TreasureAdderUI( Frame ):
+    def trapSave(self):
+        
+        
     def saveFun(self):
         global treasureCounter
         global treasurePrint
@@ -44,27 +38,42 @@ class GridDemo( Frame ):
     def listGenerate(self):
         global scoreList
         global scoreCount
+        trapCounter = 0
         
-        originalMap = open('num.txt', 'r')
-        orgRead = originalMap.read()
-        treasurePointMap = open('pointList.txt', 'w')
+        if treasureCounter == 10:
+        
+            originalMap = open('num.txt', 'r')
+            orgRead = originalMap.read()
+            treasurePointMap = open('pointList.txt', 'w')
 
-        for fileCount in orgRead:
-            if scoreCount < len(scoreList):
-                if fileCount == '4' or fileCount == '5' or fileCount == '6':
-                    newVal = "(" + str(scoreCount) + ":" + scoreList[scoreCount] + ")"
-                    treasurePointMap.write(newVal)
+            for fileCount in scoreList:
+                if scoreCount < len(scoreList):
+                    newVal = (scoreList[scoreCount])
+                    treasurePointMap.write(newVal+"\n")
                     scoreCount += 1
-                    if scoreCount >= len(scoreList):
-                        treasurePointMap.write(fileCount)
-                else:
-                    treasurePointMap.write(fileCount)
-            else:
-                treasurePointMap.write(fileCount)                    
+            
+            Frame.__init__( self )
+            self.master.title( "Traps" )
+    
+            self.master.rowconfigure( 0, weight = 1 )
+            self.master.columnconfigure( 0, weight = 1 )
+            self.grid( sticky = W+E+N+S )
+
+            self.labelTrapNumber = Label(self, text="Number of traps")
+            self.labelTrapNumber.grid (row = 1, rowspan = 1, column = 1)
+
+            self.entryTrapNumber = Entry(self)
+            self.entryTrapNumber.grid (row = 1, rowspan = 1,  column = 2, sticky = W+E+N+S)
+
+            trapCounter = self.entryTrapNumber.get()
+            
+            self.trapButton = Button(self, text = "Save Traps", command=treasurePointMap.write(trapCounter))
+            self.trapButton.grid(row = 2, column = 1, columnspan = 2, sticky = W+E+N+S)
             
         
-        
-        
+        else:
+            tkMessageBox.showwarning("Not enough Treasure", "You haven't added all the treasure yet!")
+                                 
     def __init__( self ):
 
         global treasureCounter
@@ -106,15 +115,12 @@ class GridDemo( Frame ):
 
         self.finishButton = Button(self, text = "Finish adding treasures", command=self.listGenerate)
         self.finishButton.grid(row = 5, column = 1, columnspan = 2, sticky = W+E+N+S)
-
-        self.printLists = Button(self, text = "Print Test", command=printLists)
-        self.printLists.grid(row = 6, column = 1, columnspan = 2, sticky = W+E+N+S)
      
         self.rowconfigure( 1, weight = 1 )
         self.columnconfigure( 1, weight = 1 )
 
 def main():
-    GridDemo().mainloop()   
+    TreasureAdderUI().mainloop()   
 
 if __name__ == "__main__":
     main()
