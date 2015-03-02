@@ -48,11 +48,20 @@ class TreasureAdderUI(Frame):
             originalMap = open('num.txt', 'r')
             orgRead = originalMap.read()
             treasurePointMap = open('pointList.txt', 'w')
+            treasureNamesFile = open('treasureNameList.txt', 'w')
 
             for fileCount in scoreList:
                 if scoreCount < len(scoreList):
                     newVal = (scoreList[scoreCount])
                     treasurePointMap.write(newVal+"\n")
+                    scoreCount += 1
+            
+            scoreCount = 0
+            
+            for fileCount in nameList:
+                if scoreCount < len(nameList):
+                    newVal = (nameList[scoreCount])
+                    treasureNamesFile.write(newVal+"\n")
                     scoreCount += 1
             
             Frame.__init__( self )
