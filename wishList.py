@@ -10,6 +10,7 @@ class wishListTesting(Frame):
         treasureWishlist = open('wishListOrder.txt', 'w')
 
         orderList = []
+        
 
         orderList.append(self.entryOne.get()+"treasure1")
         orderList.append(self.entryTwo.get()+"treasure2")
@@ -22,6 +23,9 @@ class wishListTesting(Frame):
         orderList.append(self.entryNine.get()+"treasure9")
         orderList.append(self.entryTen.get()+"treasure10")
 
+        orderList.sort()
+        print orderList
+        
         for x in range(0, 10):
             treasureWishlist.write(orderList[x][1:]+'\n')
                

@@ -1,4 +1,3 @@
-treasure4
 treasure5
 treasure6
 treasure7
@@ -8,3 +7,4 @@ treasure10
 treasure1
 treasure2
 treasure3
+treasure4
