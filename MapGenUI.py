@@ -14,7 +14,7 @@ class TreasureAdderUI(Frame):
     def trapSave(self):
         treasurePointMap = open("pointList.txt", "a")
         treasurePointMap.write(self.entryTrapNumber.get())
-           
+
     def saveFun(self):
         global treasureCounter
         global treasurePrint
@@ -38,13 +38,13 @@ class TreasureAdderUI(Frame):
             tkMessageBox.showwarning("Limit reached", "You've added all treasures, click on Finish Adding Treasures button to continue")
 
     def listGenerate(self):
-        
+
         global scoreList
         global scoreCount
         trapCounter = 0
-      
+
         if treasureCounter == 10:
-        
+
             originalMap = open('num.txt', 'r')
             orgRead = originalMap.read()
             treasurePointMap = open('pointList.txt', 'w')
@@ -55,18 +55,19 @@ class TreasureAdderUI(Frame):
                     newVal = (scoreList[scoreCount])
                     treasurePointMap.write(newVal+"\n")
                     scoreCount += 1
-            
+
             scoreCount = 0
-            
+
             for fileCount in nameList:
                 if scoreCount < len(nameList):
                     newVal = (nameList[scoreCount])
                     treasureNamesFile.write(newVal+"\n")
                     scoreCount += 1
-            
+
             Frame.__init__( self )
             self.master.title( "Traps" )
-    
+
+
             self.master.rowconfigure( 0, weight = 1 )
             self.master.columnconfigure( 0, weight = 1 )
             self.grid( sticky = W+E+N+S )
@@ -79,18 +80,19 @@ class TreasureAdderUI(Frame):
 
             self.trapButton = Button(self, text = "Save Traps", command=self.trapSave)
             self.trapButton.grid(row = 2, column = 1, columnspan = 2, sticky = W+E+N+S)
-            
-        
+
+
         else:
             tkMessageBox.showwarning("Not enough Treasure", "You haven't added all the treasure yet!")
-                                 
+
     def __init__(self):
 
         global treasureCounter
         treasurePrint = str(treasureCounter) + "/10"
-        
+
         Frame.__init__( self )
         self.master.title( "Treasure Creator" )
+
 
         self.master.rowconfigure( 0, weight = 1 )
         self.master.columnconfigure( 0, weight = 1 )
@@ -110,10 +112,10 @@ class TreasureAdderUI(Frame):
 
         self.labelTreasureNum = Label(self, text=treasurePrint)
         self.labelTreasureNum.grid (row = 0, rowspan = 1, column = 2)
-        
+
         self.entryName = Entry(self)
-        self.entryName.grid (row = 1, rowspan = 1,  column = 2, sticky = W+E+N+S) 
- 
+        self.entryName.grid (row = 1, rowspan = 1,  column = 2, sticky = W+E+N+S)
+
         self.entryPoints = Entry(self)
         self.entryPoints.grid(row = 2, rowspan = 1, column = 2, sticky = W+E+N+S)
 
@@ -125,12 +127,16 @@ class TreasureAdderUI(Frame):
 
         self.finishButton = Button(self, text = "Finish adding treasures", command=self.listGenerate)
         self.finishButton.grid(row = 5, column = 1, columnspan = 2, sticky = W+E+N+S)
-     
+
         self.rowconfigure( 1, weight = 1 )
         self.columnconfigure( 1, weight = 1 )
 
+
 def main():
-    TreasureAdderUI().mainloop()   
+    root = Tk()
+    root.geometry("500x815")
+    app = TreasureAdderUI(root)
+    root.mainloop()
 
 if __name__ == "__main__":
     main()

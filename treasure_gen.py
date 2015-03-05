@@ -3,6 +3,8 @@ from ttk import Frame, Button, Style
 import Tkinter as tk
 import tkFileDialog
 
+import MapGenUI
+
 class TreasureGen(Frame):
     frame = []
     button_array = []
@@ -159,14 +161,19 @@ class TreasureGen(Frame):
 
         closeButton = Button(self, text="Close")
         closeButton.pack(side=RIGHT, padx=5, pady=5)
-        okButton = Button(self, text="OK")
-        okButton.pack(side=RIGHT, padx=5, pady=5)
+        nextButton = Button(self, text="Next", command = self.nextFrame)
+        nextButton.pack(side=RIGHT, padx=5, pady=5)
 
         loadButton = Button(self, text="Load Map", command = self.loadFile)
         loadButton.pack(side=RIGHT, padx=5, pady=5)
 
         saveButton = Button(self, text="Save Map", command = self.fileSave)
         saveButton.pack(side=RIGHT, padx=5, pady=5)
+
+    def nextFrame(self):
+        page2 = MapGenUI.TreasureAdderUI()
+
+        page2.mainloop()
 
 
 def main():
