@@ -93,7 +93,8 @@ class TreasureAdderUI(Frame):
         Frame.__init__( self )
         self.master.title( "Treasure Creator" )
 
-
+        self.master.pack_propagate(0)
+        
         self.master.rowconfigure( 0, weight = 1 )
         self.master.columnconfigure( 0, weight = 1 )
         self.grid( sticky = W+E+N+S )
@@ -130,6 +131,7 @@ class TreasureAdderUI(Frame):
 
         self.rowconfigure( 1, weight = 1 )
         self.columnconfigure( 1, weight = 1 )
+
 
 
 def main():

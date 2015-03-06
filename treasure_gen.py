@@ -179,7 +179,7 @@ class TreasureGen(Frame):
 def main():
 
     root = Tk()
-    root.geometry("800x815")
+    # root.geometry("800x815")
     app = TreasureGen(root)
     root.mainloop()
 
