@@ -10,7 +10,7 @@ class wishListTesting(Frame):
         treasureWishlist = open('wishListOrder.txt', 'w')
 
         orderList = []
-        
+
 
         orderList.append(self.entryOne.get()+"treasure1")
         orderList.append(self.entryTwo.get()+"treasure2")
@@ -25,30 +25,30 @@ class wishListTesting(Frame):
 
         orderList.sort()
         print orderList
-        
+
         for x in range(0, 10):
             treasureWishlist.write(orderList[x][1:]+'\n')
-               
-                
-    def __init__(self):   
-            
-        Frame.__init__( self )
-        self.master.title("Wish List")
 
-        self.master.rowconfigure( 0, weight = 1 )
-        self.master.columnconfigure( 0, weight = 1 )
-        self.grid( sticky = W+E+N+S )
-        
+
+    def __init__(self):
+
+        Frame.__init__( self )
+        # self.master.title("Wish List")
+        #
+        # self.master.rowconfigure( 0, weight = 1 )
+        # self.master.columnconfigure( 0, weight = 1 )
+        # self.grid( sticky = W+E+N+S )
+
         self.rowconfigure( 1, weight = 1 )
         self.columnconfigure( 1, weight = 1 )
 
         self.wishlistUI()
 
     def wishlistUI(self):
-        
+
         treasureNames = open('pointList.txt', 'r')
         tresaureScores = open('treasureNameList.txt', 'r')
-        
+
 
         with open('treasureNameList.txt') as f:
             content = f.readlines()
@@ -64,7 +64,7 @@ class wishListTesting(Frame):
 
         self.labelEntry = Label(self, text="Set the order")
         self.labelEntry.grid(row = 0, columnspan = 1, column = 3)
-        
+
         self.labelNameOne = Label(self, text=content[0])
         self.labelNameOne.grid (row = 1, rowspan = 1, column = 1)
 
@@ -73,7 +73,7 @@ class wishListTesting(Frame):
 
         self.entryOne = Entry(self)
         self.entryOne.grid (row = 1, rowspan = 1, column = 3)
-        
+
         self.labelNameTwo = Label(self, text=content[1])
         self.labelNameTwo.grid (row = 2, rowspan = 1, column = 1)
 
@@ -82,7 +82,7 @@ class wishListTesting(Frame):
 
         self.entryTwo = Entry(self)
         self.entryTwo.grid (row = 2, rowspan = 1, column = 3)
-        
+
         self.labelNameThree = Label(self, text=content[2])
         self.labelNameThree.grid (row = 3, rowspan = 1, column = 1)
 
@@ -91,7 +91,7 @@ class wishListTesting(Frame):
 
         self.entryThree = Entry(self)
         self.entryThree.grid (row = 3, rowspan = 1, column = 3)
-        
+
         self.labelNameFour = Label(self, text=content[3])
         self.labelNameFour.grid (row = 4, rowspan = 1, column = 1)
 
@@ -100,7 +100,7 @@ class wishListTesting(Frame):
 
         self.entryFour = Entry(self)
         self.entryFour.grid (row = 4, rowspan = 1, column = 3)
-        
+
         self.labelNameFive = Label(self, text=content[4])
         self.labelNameFive.grid (row = 5, rowspan = 1, column = 1)
 
@@ -109,7 +109,7 @@ class wishListTesting(Frame):
 
         self.entryFive = Entry(self)
         self.entryFive.grid (row = 5, rowspan = 1, column = 3)
-        
+
         self.labelNameSix = Label(self, text=content[5])
         self.labelNameSix.grid (row = 6, rowspan = 1, column = 1)
 
@@ -118,7 +118,7 @@ class wishListTesting(Frame):
 
         self.entrySix = Entry(self)
         self.entrySix.grid (row = 6, rowspan = 1, column = 3)
-        
+
         self.labelNameSeven = Label(self, text=content[6])
         self.labelNameSeven.grid (row = 7, rowspan = 1, column = 1)
 
@@ -127,7 +127,7 @@ class wishListTesting(Frame):
 
         self.entrySeven = Entry(self)
         self.entrySeven.grid (row = 7, rowspan = 1, column = 3)
-        
+
         self.labelNameEight = Label(self, text=content[7])
         self.labelNameEight.grid (row = 8, rowspan = 1, column = 1)
 
@@ -145,7 +145,7 @@ class wishListTesting(Frame):
 
         self.entryNine = Entry(self)
         self.entryNine.grid (row = 9, rowspan = 1, column = 3)
-        
+
         self.labelNameTen = Label(self, text=content[9])
         self.labelNameTen.grid (row = 10, rowspan = 1, column = 1)
 
@@ -161,7 +161,7 @@ class wishListTesting(Frame):
         self.helpButton = Button(self, text="Help", command = self.helpButton)
         self.helpButton.grid (row=11, rowspan = 1, column = 3, columnspan = 1)
 def main():
-    wishListTesting().mainloop()  
+    wishListTesting().mainloop()
 
 if __name__ == "__main__":
     main()

@@ -10,10 +10,9 @@ scoreCount = 0
 
 
 class TreasureAdderUI(Frame):
+    fr1 = []
 
-    def trapSave(self):
-        treasurePointMap = open("pointList.txt", "a")
-        treasurePointMap.write(self.entryTrapNumber.get())
+    finishButton = []
 
     def saveFun(self):
         global treasureCounter
@@ -32,11 +31,15 @@ class TreasureAdderUI(Frame):
                 treasureCounter = treasureCounter + 1
                 treasurePrint = str(treasureCounter) + "/10"
                 self.labelTreasureNum.config(text=treasurePrint)
+
+
             else:
                 tkMessageBox.showwarning("Error", "Fill all 3 boxes")
         else:
             tkMessageBox.showwarning("Limit reached", "You've added all treasures, click on Finish Adding Treasures button to continue")
 
+        if treasureCounter == 10:
+            self.listGenerate()
     def listGenerate(self):
 
         global scoreList
@@ -64,74 +67,101 @@ class TreasureAdderUI(Frame):
                     treasureNamesFile.write(newVal+"\n")
                     scoreCount += 1
 
-            Frame.__init__( self )
-            self.master.title( "Traps" )
-
-
-            self.master.rowconfigure( 0, weight = 1 )
-            self.master.columnconfigure( 0, weight = 1 )
-            self.grid( sticky = W+E+N+S )
-
-            self.labelTrapNumber = Label(self, text="Number of traps")
-            self.labelTrapNumber.grid (row = 1, rowspan = 1, column = 1)
-
-            self.entryTrapNumber = Entry(self)
-            self.entryTrapNumber.grid (row = 1, rowspan = 1,  column = 2, sticky = W+E+N+S)
-
-            self.trapButton = Button(self, text = "Save Traps", command=self.trapSave)
-            self.trapButton.grid(row = 2, column = 1, columnspan = 2, sticky = W+E+N+S)
-
+            self.finishButton.configure(state=NORMAL)
 
         else:
             tkMessageBox.showwarning("Not enough Treasure", "You haven't added all the treasure yet!")
 
-    def __init__(self):
+    def __init__(self, parent, controller):
+        Frame.__init__(self,parent)
+
+        self.fr1 = Frame(self, relief="raised", borderwidth=1)
+
+        self.fr1.pack(fill="both", expand=False)
+
+        # label = Label(self.fr1, text="Page 1", font=LARGE_FONT)
+        # label.pack(pady=10,padx=10)
+        #
+        # button2 = Button(self.fr1, text="back to home",
+        #                     command=lambda: controller.show_frame(StartPage))
+        # button2.pack()
 
         global treasureCounter
         treasurePrint = str(treasureCounter) + "/10"
 
-        Frame.__init__( self )
-        self.master.title( "Treasure Creator" )
+        Frame.__init__( self, parent)
+        #self.master.title( "Treasure Creator" )
+        #
+        #self.master.pack_propagate(0)
+        #
+        # self.master.rowconfigure( 0, weight = 1 )
+        # self.master.columnconfigure( 0, weight = 1 )
+        # self.grid( sticky = W+E+N+S )
 
-        self.master.pack_propagate(0)
-        
-        self.master.rowconfigure( 0, weight = 1 )
-        self.master.columnconfigure( 0, weight = 1 )
-        self.grid( sticky = W+E+N+S )
+        self.fr1 = Frame(self, relief="raised", borderwidth=1)
+        self.fr1.pack(fill="both", expand=1)
 
-        self.labelName = Label(self, text="Treasure Name")
+
+        self.labelName = Label(self.fr1, text="Treasure Name")
         self.labelName.grid (row = 1, rowspan = 1, column = 1)
 
-        self.labelScore = Label(self, text="Treasure Score")
+        self.labelScore = Label(self.fr1, text="Treasure Score")
         self.labelScore.grid (row = 2, rowspan = 1, column = 1)
 
-        self.labelDesc = Label(self, text="Treasure Description")
+        self.labelDesc = Label(self.fr1, text="Treasure Description")
         self.labelDesc.grid (row = 3, rowspan = 1, column = 1)
 
-        self.labelTreasureCreated = Label(self, text="Treasures Created")
+        self.labelTreasureCreated = Label(self.fr1, text="Treasures Created")
         self.labelTreasureCreated.grid (row = 0, rowspan = 1, column = 1)
 
-        self.labelTreasureNum = Label(self, text=treasurePrint)
+        self.labelTreasureNum = Label(self.fr1, text=treasurePrint)
         self.labelTreasureNum.grid (row = 0, rowspan = 1, column = 2)
 
-        self.entryName = Entry(self)
+        self.entryName = Entry(self.fr1)
         self.entryName.grid (row = 1, rowspan = 1,  column = 2, sticky = W+E+N+S)
 
-        self.entryPoints = Entry(self)
+        self.entryPoints = Entry(self.fr1)
         self.entryPoints.grid(row = 2, rowspan = 1, column = 2, sticky = W+E+N+S)
 
-        self.entryDesc = Entry(self)
+        self.entryDesc = Entry(self.fr1)
         self.entryDesc.grid(row = 3, rowspan = 1, column = 2, sticky = W+E+N+S)
 
-        self.saveButton = Button(self, text = "Save this treasure", command=self.saveFun)
+        self.saveButton = Button(self.fr1, text = "Save this treasure", command=self.saveFun)
         self.saveButton.grid(row = 4, column = 1, columnspan = 2, sticky = W+E+N+S)
 
-        self.finishButton = Button(self, text = "Finish adding treasures", command=self.listGenerate)
+        self.finishButton = Button(self.fr1, text = "Finish adding treasures", state=DISABLED, command=lambda: controller.show_frame(trapNumber))
         self.finishButton.grid(row = 5, column = 1, columnspan = 2, sticky = W+E+N+S)
 
-        self.rowconfigure( 1, weight = 1 )
-        self.columnconfigure( 1, weight = 1 )
+        # self.rowconfigure( 1, weight = 1 )
+        # self.columnconfigure( 1, weight = 1 )
 
+class trapNumber(Frame):
+    fr1 = []
+
+    def trapSave(self):
+        treasurePointMap = open("pointList.txt", "a")
+        treasurePointMap.write(self.entryTrapNumber.get())
+
+    def __init__(self, parent, controller):
+
+        Frame.__init__( self, parent )
+        # self.master.title( "Traps" )
+        #
+        #
+        # self.master.rowconfigure( 0, weight = 1 )
+        # self.master.columnconfigure( 0, weight = 1 )
+        # self.grid( sticky = W+E+N+S )
+        self.fr1 = Frame(self, relief="raised", borderwidth=1)
+        self.fr1.pack(fill="both", expand=1)
+
+        self.labelTrapNumber = Label(self.fr1, text="Number of traps")
+        self.labelTrapNumber.grid (row = 1, rowspan = 1, column = 1)
+
+        self.entryTrapNumber = Entry(self.fr1)
+        self.entryTrapNumber.grid (row = 1, rowspan = 1,  column = 2, sticky = W+E+N+S)
+
+        self.trapButton = Button(self.fr1, text = "Save Traps", command=self.trapSave)
+        self.trapButton.grid(row = 2, column = 1, columnspan = 2, sticky = W+E+N+S)
 
 
 def main():
