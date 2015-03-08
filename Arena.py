@@ -32,12 +32,12 @@ for i in range(10):
 list.reverse(wishlist)
 
 
-    
+
 with open('pointList.txt') as f:
     lines = f.readlines()
 
 
-   
+
 #MATRIX'S LISTS
 coords1=[]
 coords2=[]
@@ -344,7 +344,7 @@ while i <= h:
         if k == 1:
             matrix[w2][w1] = 2
             i = i + 1
-            
+
 #TRAPS PLACED
 h = int(lines[10])
 for i in range (h):
@@ -364,7 +364,7 @@ for i in range (h):
         h = h + 1
     else:
         matrix[w2][w1] = random.randrange(7,9)
-        
+
 #CLASSES
 class treasure:
     def __init__(self, xco, yco, ty, points, name, var):
@@ -400,7 +400,7 @@ for i in range(40):
 for i in range(40):
     if matrix[38][i] == 1:
         matrix[38][i] = 2
-        
+
 #SPRITES IMPORT
 sprite1 = PhotoImage(file = 'sprites/floorSprite.gif')
 sprite2 = PhotoImage(file = 'sprites/wallSprite.gif')
@@ -491,7 +491,7 @@ for i in range(39):
             k = k + 1
             t = random.randrange(3)
             canvas.create_image(cox, coy, image=T1[t], anchor = NW)
-            
+
         if matrix[i][j] == 4:
             cox = j*20
             coy = i*20
@@ -500,7 +500,7 @@ for i in range(39):
             k = k + 1
             t = random.randrange(3)
             canvas.create_image(cox, coy, image=T2[t], anchor = NW)
-            
+
         if matrix[i][j] == 5:
             cox = j*20
             coy = i*20
@@ -509,7 +509,7 @@ for i in range(39):
             k = k + 1
             t = random.randrange(3)
             canvas.create_image(cox, coy, image=T3[t], anchor = NW)
-            
+
 co1, co2, co3, co4, co5, co6, co7, co8, co9, co10, co11, co12, co13, co14, co15, co16, co17, co18 = canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW), canvas.create_image(cox, coy, image=sprite1, anchor = NW)
 cover1 = [co1, co2, co3, co4, co5, co6, co7, co8, co9, co10]
 cover2 = [co11, co12, co13, co14, co15, co16, co17, co18]
@@ -782,5 +782,5 @@ for i in range (len(path)):
     if robot1.points >= 700:
         messageWindow()
         break
-            
+
 window.mainloop()

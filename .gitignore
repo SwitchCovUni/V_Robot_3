@@ -3,6 +3,3 @@
 *.iml
 *.iws
 *.pyc
-
-# SelfGen
-*.txt
