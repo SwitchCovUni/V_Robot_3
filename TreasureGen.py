@@ -81,7 +81,7 @@ class TreasureGen(tk.Frame):
                 return function()
 
         nextButton = Button(self, text="Next",
-                            command=lambda: multifunction(o, controller.show_frame(MN)))
+                            command=lambda: multifunction(saveMap, controller.show_frame(MN)))
         nextButton.pack(side="right", padx=5, pady=5)
 
         loadButton = Button(self, text="Load Map", command = self.loadFile)
