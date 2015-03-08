@@ -22,20 +22,22 @@ class TreasureGen(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
-
+        
         self.fr1 = tk.Frame(self, relief="raised", borderwidth=1)
 
-
+        # Sets sprite variables
         self.photo1 = tk.PhotoImage(file="sprites/floorSprite.gif")
         self.photo2 = tk.PhotoImage(file="sprites/smallTreasure1.gif")
         self.photo3 = tk.PhotoImage(file="sprites/smallTreasure2.gif")
         self.photo4 = tk.PhotoImage(file="sprites/smallTreasure3.gif")
-
+        
         self.fr1.pack(fill="both", expand=1)
-
+        
+        # Sets every block to default at number 1
         for n in range(0,1560):
             self.type_list.append(1)
-
+        
+        # Generates the buttons to print row by row
         count = 1
         row = 0
         col = 0
@@ -45,8 +47,10 @@ class TreasureGen(tk.Frame):
                 padx = 0, pady = 0, relief="flat"))
             self.button_array[n].image = self.photo1
             if not (col == 5 or col == 19 or col == 34):
+                # Button triggers function that toggles the button's image
                 self.button_array[n].bind('<Button-1>', self.buttonAction)
             else:
+                # Allows for unclickable traffic light buttons
                 self.change_image = tk.PhotoImage(file="sprites/rlight.gif")
                 self.button_array[n].configure(image = self.change_image)
                 self.button_array[n].image = self.change_image
@@ -63,10 +67,11 @@ class TreasureGen(tk.Frame):
             count += 1
 
         self.pack(fill="both", expand=1)
-
+        
+        # Loads next module ready to run the next frame
         MN = MapGenUI.TreasureAdderUI
 
-
+        # Saves the maps from the condition of the array 
         def saveMap(self):
             treasureMap = open('num.txt', 'w')
 
@@ -75,11 +80,13 @@ class TreasureGen(tk.Frame):
                 savetext += str(self.type_list[n])
 
             treasureMap.write(orderList[x][1:])
-
+        
+        # Allows multiple functions in lambda command 
         def multifunction(*args):
             for function in args:
                 return function()
-
+        
+        # Button saves map and switches frame
         nextButton = Button(self, text="Next",
                             command=lambda: multifunction(saveMap, controller.show_frame(MN)))
         nextButton.pack(side="right", padx=5, pady=5)
@@ -89,18 +96,19 @@ class TreasureGen(tk.Frame):
 
         saveButton = Button(self, text="Save Map", command = self.fileSave)
         saveButton.pack(side="right", padx=5, pady=5)
-
+    
     def buttonAction(self, event):
         print "This is an event binding test"
         print event.widget['text']
-
+        
+        # Uses a function to change the state of each button
         for n in range(0,1560):
             if int(event.widget['text']) == n:
                 self.buttonType(n)
 
 
     def buttonType(self, n):
-
+        # Toggle the state of the tiles
         if self.type_list[n] == 1:
             self.type_list[n] = 3
             self.change_image = self.photo2
@@ -113,7 +121,7 @@ class TreasureGen(tk.Frame):
         elif self.type_list[n] == 5:
             self.type_list[n] = 1
             self.change_image = self.photo1
-
+        
         self.button_array[n].configure(image = self.change_image)
         self.button_array[n].image = self.change_image
         tr = ""
@@ -133,7 +141,8 @@ class TreasureGen(tk.Frame):
 
             for n in range(0,1560):
                 self.type_list[n] = int(loadable[n])
-
+            
+            # Sets tile/button states
             count = 1
             col = 0
             for n in range(0,1560):
@@ -158,11 +167,12 @@ class TreasureGen(tk.Frame):
                 count += 1
 
     def readFile(self, filename):
-
+        # Simply returns a contents of an open file
         f = open(filename, "r")
         text = f.read()
         return text
-
+    
+    # Saves File
     def fileSave(self):
         f = tkFileDialog.asksaveasfile(mode='w', defaultextension=".switch",
             filetypes = self.file_type)
