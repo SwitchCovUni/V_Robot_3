@@ -16,17 +16,19 @@ class main(tk.Tk):
         container = tk.Frame(self)
 
         container.pack(side="top", fill="none", expand = True)
-
+        
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         container.grid_propagate(1)
         self.frames = {}
-
+        
+        # Load all files with frames as modules
         TG = TreasureGen.TreasureGen
         MGU = MapGenUI.TreasureAdderUI
         TN = MapGenUI.trapNumber
         WL = wishList.wishListTesting
-
+        
+        # Loop to extract all the tramse in to dictionary
         for F in (TG, MGU, TN, WL):
 
             frame = F(container, self)
