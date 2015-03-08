@@ -34,7 +34,7 @@ class TreasureGen(tk.Frame):
         self.fr1.pack(fill="both", expand=1)
 
         for n in range(0,1560):
-            self.type_list.append(0)
+            self.type_list.append(1)
 
         count = 1
         row = 0
@@ -64,14 +64,24 @@ class TreasureGen(tk.Frame):
 
         self.pack(fill="both", expand=1)
 
-
-
         MN = MapGenUI.TreasureAdderUI
 
-        closeButton = Button(self, text="Close")
-        closeButton.pack(side="right", padx=5, pady=5)
+
+        def saveMap(self):
+            treasureMap = open('num.txt', 'w')
+
+            savetext = ""
+            for n in range(0,1560):
+                savetext += str(self.type_list[n])
+
+            treasureMap.write(orderList[x][1:])
+
+        def multifunction(*args):
+            for function in args:
+                return function()
+
         nextButton = Button(self, text="Next",
-                            command=lambda: controller.show_frame(MN))
+                            command=lambda: multifunction(o, controller.show_frame(MN)))
         nextButton.pack(side="right", padx=5, pady=5)
 
         loadButton = Button(self, text="Load Map", command = self.loadFile)
@@ -91,7 +101,7 @@ class TreasureGen(tk.Frame):
 
     def buttonType(self, n):
 
-        if self.type_list[n] == 0:
+        if self.type_list[n] == 1:
             self.type_list[n] = 3
             self.change_image = self.photo2
         elif self.type_list[n] == 3:
@@ -101,7 +111,7 @@ class TreasureGen(tk.Frame):
             self.type_list[n] = 5
             self.change_image = self.photo4
         elif self.type_list[n] == 5:
-            self.type_list[n] = 0
+            self.type_list[n] = 1
             self.change_image = self.photo1
 
         self.button_array[n].configure(image = self.change_image)
@@ -129,7 +139,7 @@ class TreasureGen(tk.Frame):
             for n in range(0,1560):
                 print str(self.type_list[n])
                 if not (col == 5 or col == 19 or col == 34):
-                    if self.type_list[n] == 0:
+                    if self.type_list[n] == 1:
                         self.change_image = self.photo1
                     elif self.type_list[n] == 3:
                         self.change_image = self.photo2

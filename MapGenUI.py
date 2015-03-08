@@ -1,5 +1,8 @@
 from Tkinter import *
 import tkMessageBox
+import Tkinter
+
+import wishList
 
 nameList = []
 scoreList = []
@@ -7,7 +10,7 @@ descList = []
 
 treasureCounter = 0
 scoreCount = 0
-
+treasurePointMap = []
 
 class TreasureAdderUI(Frame):
     fr1 = []
@@ -50,13 +53,13 @@ class TreasureAdderUI(Frame):
 
             originalMap = open('num.txt', 'r')
             orgRead = originalMap.read()
-            treasurePointMap = open('pointList.txt', 'w')
-            treasureNamesFile = open('treasureNameList.txt', 'w')
+            self.treasurePointMap = open('pointList.txt', 'w')
+            treasureNamesFile = open('namelist.txt', 'w')
 
             for fileCount in scoreList:
                 if scoreCount < len(scoreList):
                     newVal = (scoreList[scoreCount])
-                    treasurePointMap.write(newVal+"\n")
+                    self.treasurePointMap.write(newVal+"\n")
                     scoreCount += 1
 
             scoreCount = 0
@@ -79,24 +82,11 @@ class TreasureAdderUI(Frame):
 
         self.fr1.pack(fill="both", expand=False)
 
-        # label = Label(self.fr1, text="Page 1", font=LARGE_FONT)
-        # label.pack(pady=10,padx=10)
-        #
-        # button2 = Button(self.fr1, text="back to home",
-        #                     command=lambda: controller.show_frame(StartPage))
-        # button2.pack()
-
         global treasureCounter
         treasurePrint = str(treasureCounter) + "/10"
 
         Frame.__init__( self, parent)
-        #self.master.title( "Treasure Creator" )
-        #
-        #self.master.pack_propagate(0)
-        #
-        # self.master.rowconfigure( 0, weight = 1 )
-        # self.master.columnconfigure( 0, weight = 1 )
-        # self.grid( sticky = W+E+N+S )
+
 
         self.fr1 = Frame(self, relief="raised", borderwidth=1)
         self.fr1.pack(fill="both", expand=1)
@@ -132,15 +122,14 @@ class TreasureAdderUI(Frame):
         self.finishButton = Button(self.fr1, text = "Finish adding treasures", state=DISABLED, command=lambda: controller.show_frame(trapNumber))
         self.finishButton.grid(row = 5, column = 1, columnspan = 2, sticky = W+E+N+S)
 
-        # self.rowconfigure( 1, weight = 1 )
-        # self.columnconfigure( 1, weight = 1 )
 
 class trapNumber(Frame):
     fr1 = []
+    trapButton = []
 
     def trapSave(self):
-        treasurePointMap = open("pointList.txt", "a")
-        treasurePointMap.write(self.entryTrapNumber.get())
+        self.treasurePointMap = open("pointList.txt", "a")
+        self.treasurePointMap.write(self.entryTrapNumber.get())
 
     def __init__(self, parent, controller):
 
@@ -157,10 +146,44 @@ class trapNumber(Frame):
         self.labelTrapNumber = Label(self.fr1, text="Number of traps")
         self.labelTrapNumber.grid (row = 1, rowspan = 1, column = 1)
 
-        self.entryTrapNumber = Entry(self.fr1)
-        self.entryTrapNumber.grid (row = 1, rowspan = 1,  column = 2, sticky = W+E+N+S)
+        #tk_name = StringVar()
+        #tk_name.set("")
+        #tk_name.trace("w", self.text_changed)
 
-        self.trapButton = Button(self.fr1, text = "Save Traps", command=self.trapSave)
+        #self.entryTrapNumber = Entry(self.fr1, textvariable=tk_name)
+        #self.entryTrapNumber.grid (row = 1, rowspan = 1,  column = 2, sticky = W+E+N+S)
+
+        def text_changed(*args):
+            s = tk_name.get()
+            try:
+                int(s)
+                s = int(s)
+                if s > 0 and s < 26:
+                    print 'Yes'
+                    self.trapButton.configure(state=NORMAL)
+                else:
+                    print 'no'
+                    self.trapButton.configure(state=DISABLED)
+            except ValueError:
+                print "no"
+                self.trapButton.configure(state=DISABLED)
+
+
+
+        tk_name=Tkinter.StringVar()
+        tk_name.set("")
+        tk_name.trace("w", text_changed)
+
+        entry_1 = Tkinter.Entry(self.fr1, textvariable=tk_name)
+        entry_1.grid(row=1, column=1, sticky="W")
+
+        WL = wishList.wishListTesting
+
+        def multifunction(*args):
+            for function in args:
+                return function()
+
+        self.trapButton = Button(self.fr1, text = "Save Traps", state=DISABLED, command=lambda: multifunction(self.trapSave, controller.show_frame(WL)))
         self.trapButton.grid(row = 2, column = 1, columnspan = 2, sticky = W+E+N+S)
 
 

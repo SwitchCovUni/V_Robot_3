@@ -6,6 +6,7 @@ LARGE_FONT = ("Verdana", 12)
 import TreasureGen
 import MapGenUI
 import PageOneTest
+import wishList
 
 class main(tk.Tk):
 
@@ -24,8 +25,9 @@ class main(tk.Tk):
         TG = TreasureGen.TreasureGen
         MGU = MapGenUI.TreasureAdderUI
         TN = MapGenUI.trapNumber
+        WL = wishList.wishListTesting
 
-        for F in (TG, MGU, TN):
+        for F in (TG, MGU, TN, WL):
 
             frame = F(container, self)
 
